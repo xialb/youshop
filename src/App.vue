@@ -4,13 +4,20 @@
   </div>
 </template>
 
-<style>;
+<style>
+  #app{
+    height: 100%;
+  }
   html,body,ul,li,ol,dl,dd,dt,p,h1,h2,h3,h4,h5,h6,form,fieldset,legend,img,input {
       margin: 0;
       padding: 0
   }
+  html,body{
+    width: 100%;
+    height: 100%;
+  }
   body {
-      font: 12px Arial,Helvetica,sans-serif;
+    font: 12px Arial,Helvetica,sans-serif;
   }
   ul,ol,li {
       list-style: none;

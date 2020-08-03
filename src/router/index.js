@@ -7,9 +7,9 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: '/login',
@@ -23,8 +23,8 @@ const router = new VueRouter({
 })
 
 // 路由守卫
-const tokenStr = window.sessionStorage.getItem("token");
 router.beforeEach((to, from, next) => {
+  const tokenStr = window.sessionStorage.getItem("token");
   if(to.name==="Login"||tokenStr){ // 验证通过
       next();
   }else{
