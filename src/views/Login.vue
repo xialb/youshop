@@ -1,7 +1,8 @@
 <!--  -->
 <template>
-<div class='home'>
-  <button @click="aa">获取用户列表</button>
+<div class='login'>
+  <router-link :to="{path:'/'}"><button @click="login">登录</button></router-link>
+  
 </div>
 </template>
 
@@ -11,9 +12,7 @@
 
 export default {
 //import引入的组件需要注入到对象中才能使用
-components: {
-  
-},
+components: {},
 data() {
 //这里存放数据
 return {
@@ -26,19 +25,15 @@ computed: {},
 watch: {},
 //方法集合
 methods: {
-  aa:function(){
-    this.$axios.get("/users",{
-      params:{
-        query:"",
-        pagenum:"1",
-        pagesize:"5",
-      }
-    }).then(res=>{console.log(res);this.$message({
-        message:"获取成功",
-        type:"warning"
-      })})
-    .catch(err=>console.log(err))
-  }
+  login:function(){
+    this.$axios.post("/login",{
+      username:"admin",
+      password:"123456"
+    }).then(res=>{
+      window.sessionStorage.setItem("token",res.data.token)
+
+    })
+  },
 },
 //生命周期 - 创建完成（可以访问当前this实例）
 created() {
@@ -46,7 +41,7 @@ created() {
 },
 //生命周期 - 挂载完成（可以访问DOM元素）
 mounted() {
-  
+
 },
 beforeCreate() {}, //生命周期 - 创建之前
 beforeMount() {}, //生命周期 - 挂载之前
@@ -57,10 +52,6 @@ destroyed() {}, //生命周期 - 销毁完成
 activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 }
 </script>
-<style lang="less" scoped>
-  .home{
-    button{
-      background: red;
-    }
-  }
+<style  scoped>
+
 </style>
