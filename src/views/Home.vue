@@ -11,25 +11,32 @@
         </el-button>
       </el-header>
       <el-container>
-        <el-aside width="200px" class="aside">
+        <el-aside :width="isCollapse ? '64px': '200px'" class="aside">
+          <div class="toggle_button"><span @click="toggleCol"><i class="el-icon-s-operation"></i></span></div>
           <el-menu
             background-color="#333744"
             text-color="#fff"
             active-text-color="rgb(64,158,255)"
             unique-opened
+            collapse-transition
+            :collapse="isCollapse"
+            router
+            :default-active="curSources"
           >
             <el-submenu v-for="item in menuList" :key="item.id" :index="item.id + ''">
               <template slot="title">
                 <i :class="menuIcons[item.id]"></i>
                 <span>{{item.authName}}</span>
               </template>
-              <el-menu-item :index="item.id + ''" v-for="item in item.children" :key="item.id">
+              <el-menu-item :index="'/' + item.path" v-for="item in item.children" :key="item.id" @click="saveNavStatus('/' + item.path)">
                 <i :class="menuIcons[item.id]"></i>{{item.authName}}
               </el-menu-item>
             </el-submenu>
           </el-menu>
         </el-aside>
-        <el-main class="main">Main</el-main>
+        <el-main class="main">
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -61,6 +68,8 @@ export default {
         145:"el-icon-s-data",
         146:"el-icon-s-marketing"
       },
+      isCollapse:false,
+      curSources:""
     };
   },
   //监听属性 类似于data概念
@@ -79,17 +88,29 @@ export default {
         if(res.meta.status!=200){
           return
         }
-        console.log(res.data)
         this.menuList = res.data
       })
       .catch((err)=>{
         console.log(err)
       })
+    },
+    toggleCol:function(){
+      if(!this.isCollapse){
+        this.isCollapse = true;
+      }else{
+        this.isCollapse = false;
+      }
+    },
+    saveNavStatus:function(sources){
+      window.sessionStorage.setItem("NavStatus",sources)
+      this.curSources = sources
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
     this.getMenuList()
+    this.curSources = window.sessionStorage.getItem("NavStatus")
+    // this.curSources = window.location.hash.split("#")[1]
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -131,7 +152,31 @@ export default {
   }
   .el-aside {
     background: #333744;
-    
+    .el-menu{
+      border-right: none;
+    }
+    .toggle_button{
+      width:100%;
+      height: 30px;
+      line-height: 30px;
+      font-size: 16px;
+      color: #fff;
+      box-sizing: border-box;
+      text-align: center;
+      span{
+        cursor: pointer;
+        background: #333744;
+        width: 64px;
+        height: 30px;
+        text-align: center;
+        float: right;
+        display: block;
+        border-radius: 5px;
+      }
+      span:hover{
+        background: #262a2c;
+      }
+    }
   }
 
   .el-main {
