@@ -43,4 +43,12 @@
       display: block;
       border: 0;
   }
+  .el-card{
+    margin-top: 18px;
+    box-shadow: 0 2px 3px rgba(0,0,0,.15)!important;
+    border: 1px solid #ebeef5;
+    background-color: #fff;
+    transition: .3s;
+    color: #303133;
+  }
 </style>
