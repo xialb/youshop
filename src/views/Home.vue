@@ -18,7 +18,7 @@
             text-color="#fff"
             active-text-color="rgb(64,158,255)"
             unique-opened
-            collapse-transition
+            :collapse-transition="false"
             :collapse="isCollapse"
             router
             :default-active="curSources"
