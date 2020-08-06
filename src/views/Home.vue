@@ -3,7 +3,9 @@
   <div class="home">
     <el-container class="home_container">
       <el-header class="header">
-        <img src="../assets/images/logo.png" alt class="head_logo" />
+        <router-link :to="{path:'/home'}">
+          <img src="../assets/images/logo.png" alt class="head_logo" />
+        </router-link>
         <span class="head_title">优品购商城</span>
         <el-button type="info" @click="logOut">
           退出

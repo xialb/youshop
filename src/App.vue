@@ -51,4 +51,11 @@
     transition: .3s;
     color: #303133;
   }
+  /* 百度地图去掉logo信息 */
+  .BMap_cpyCtrl {
+    display:none!important;
+  }
+  .anchorBL{
+      display:none!important;
+  }
 </style>

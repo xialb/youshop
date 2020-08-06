@@ -58,7 +58,7 @@ router.beforeEach((to, from, next) => {
   if(to.path==="/login"||tokenStr){ // 验证通过
     window.sessionStorage.setItem("NavStatus",window.location.hash.split("#")[1])
     if(to.path==="/welcome"){
-      window.sessionStorage.setItem("NavStatus","/welcome")
+      window.sessionStorage.setItem("NavStatus","/welcome");
     }
     next();
   }else{
